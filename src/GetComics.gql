@@ -1,0 +1,13 @@
+query Comics($comicsInput: ComicsInput!) {
+  comics(comicsInput: $comicsInput) {
+    id
+    name
+    person_credits
+    description
+    image
+    issue_number
+    cover_date
+    volume
+    publisher
+  }
+}
