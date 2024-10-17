@@ -1,17 +1,22 @@
-import { Flex, useTheme } from "@chakra-ui/react";
-import React from "react";
+import { Flex } from "@chakra-ui/react";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const {
-    colors: { gray },
-  } = useTheme();
   return (
-    <>
-      <Flex direction="column" as="main" bg={gray[500]} minHeight="100%">
-        {children}
-      </Flex>
-    </>
+    <Flex
+      position="fixed"
+      top={0}
+      left={0}
+      width="100%"
+      height="100%"
+      direction="column"
+      as="main"
+      backgroundImage="url('/img/CBPbackground.png')"
+      backgroundRepeat="repeat"
+      backgroundSize="auto"
+    >
+      {children}
+    </Flex>
   );
 };
