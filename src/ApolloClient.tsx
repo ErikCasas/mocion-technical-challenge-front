@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { config } from "./config";
+import { config } from "../config";
 
 const client = new ApolloClient({
   uri: config.GRAPHQL_URL,
