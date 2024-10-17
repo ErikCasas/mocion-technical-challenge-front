@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction, useMemo, useState } from "react";
-import { User } from "@/types/schemaTypes";
+import { User } from "../types/schemaTypes";
 import { createContext } from "react";
 
-type UserState = Pick<User, "id" | "email" | "name" | "nickName"> | null;
+type UserState = Pick<User, "id" | "email" | "name" | "nickname"> | null;
 
 export type Context = {
   user: UserState;

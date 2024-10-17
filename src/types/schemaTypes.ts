@@ -65,6 +65,7 @@ export type Query = {
   __typename?: 'Query';
   comic: Comic;
   comics: Array<Comic>;
+  user: User;
 };
 
 
@@ -88,5 +89,5 @@ export type User = {
   favoriteComics?: Maybe<Array<Comic>>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  nickName: Scalars['String']['output'];
+  nickname: Scalars['String']['output'];
 };

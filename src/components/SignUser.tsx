@@ -1,6 +1,4 @@
-// src/components/SignUser.tsx
 import {
-  Divider,
   Flex,
   FormControl,
   FormLabel,
@@ -19,8 +17,12 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { MdEmail, MdLock, MdPersonAdd } from "react-icons/md";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { signInWithCredentials } from "../services/authService";
+import { useLazyQuery } from "@apollo/client";
+import { GetUserDocument } from "../graphql/GetUser.generated";
+import { useUser } from "../context/useUser";
+import { Loading } from "./Loading";
 interface SignUserProps {
   onSignUp: () => void;
 }
@@ -29,9 +31,21 @@ export const SignUser: React.FC<SignUserProps> = ({ onSignUp }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useUser();
 
-  const handleLogin = () => {
-    console.log("Iniciar sesión con:", email, password);
+  const [getUser, { data, loading: isLoadingUserData }] =
+    useLazyQuery(GetUserDocument);
+
+  useEffect(() => {
+    if (data) {
+      const { email, id, name, nickname } = data.user;
+      setUser({ email, id, name, nickname });
+    }
+  }, [data, setUser]);
+
+  const handleLogin = async () => {
+    await signInWithCredentials(email, password);
+    await getUser();
   };
 
   return (
@@ -48,6 +62,7 @@ export const SignUser: React.FC<SignUserProps> = ({ onSignUp }) => {
       bgColor="#dbb102"
       p={12}
     >
+      {isLoadingUserData && <Loading />}
       <Heading fontWeight="extrabold">Sign In</Heading>
 
       <FormControl id="email" mt={4}>
