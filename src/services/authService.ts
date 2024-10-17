@@ -32,10 +32,12 @@ export const signUpWithCredentials = async ({
   name,
   email,
   password,
+  nickname,
 }: {
   name: string;
   email: string;
   password: string;
+  nickname: string;
 }): Promise<void> => {
   const signUpRequest = await fetch(`${config.AUTH_API_URL}/sign-up`, {
     method: "POST",
@@ -44,6 +46,7 @@ export const signUpWithCredentials = async ({
       email,
       password,
       name,
+      nickname,
     }),
   });
 

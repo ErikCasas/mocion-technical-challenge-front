@@ -1,38 +1,27 @@
-// /**
-//  * @license
-//  * Copyright 2023 Ada School
-//  * Unauthorized copying of this file, via any medium is strictly prohibited
-//  * Proprietary and confidential
-//  */
+import { Navigate } from "react-router-dom";
+import { PublicRoute } from "../AppRoute";
+import { useUser } from "../context/useUser";
+import React from "react";
 
-// import { useEffect } from "react";
-// import { Navigate } from "react-router-dom";
-// import { AppRoute } from "../AppRoute";
-// import { useUser } from "../providers/useUser";
-// import { UserRole } from "../schemaTypes";
+export const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({
+  children,
+}) => {
+  const { user } = useUser();
 
-// interface ProtectedRouteProps {
-//   children: JSX.Element;
-//   allowedRoles?: Array<UserRole>;
-//   showUserMenus?: boolean;
-// }
+  const locationPathname = window.location.pathname;
 
-// export const ProtectedRoute = ({
-//   children,
-//   allowedRoles,
-// }: ProtectedRouteProps): JSX.Element => {
-//   if (!user) {
-//     return (
-//       <Navigate
-//         to={{
-//           pathname: AppRoute.Base,
-//         }}
-//         state={{
-//           from: locationPathname,
-//         }}
-//       />
-//     );
-//   }
+  if (!user) {
+    return (
+      <Navigate
+        to={{
+          pathname: PublicRoute.Base,
+        }}
+        state={{
+          from: locationPathname,
+        }}
+      />
+    );
+  }
 
-//   return children;
-// };
+  return children;
+};

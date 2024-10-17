@@ -15,10 +15,6 @@ const HomePage = () => {
     }
   }, [navigate, user]);
 
-  const handleSignUp = () => {
-    navigate(AppRoute.Comics);
-  };
-
   return (
     <Grid
       as="section"
@@ -42,7 +38,7 @@ const HomePage = () => {
         />
       </Flex>
       <Box h="100%">
-        <SignUser onSignUp={handleSignUp} />
+        <SignUser />
       </Box>
     </Grid>
   );

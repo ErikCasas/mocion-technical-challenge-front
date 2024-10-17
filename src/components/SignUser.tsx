@@ -13,24 +13,27 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
   Heading,
 } from "@chakra-ui/react";
 import { MdEmail, MdLock, MdPersonAdd } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { signInWithCredentials } from "../services/authService";
+import {
+  signInWithCredentials,
+  signUpWithCredentials,
+} from "../services/authService";
 import { useLazyQuery } from "@apollo/client";
 import { GetUserDocument } from "../graphql/GetUser.generated";
 import { useUser } from "../context/useUser";
 import { Loading } from "./Loading";
-interface SignUserProps {
-  onSignUp: () => void;
-}
+import { SignUp } from "./SignUp";
+import { useNavigate } from "react-router-dom";
+import { AppRoute } from "../AppRoute";
 
-export const SignUser: React.FC<SignUserProps> = ({ onSignUp }) => {
+export const SignUser: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const { setUser } = useUser();
 
   const [getUser, { data, loading: isLoadingUserData }] =
@@ -40,12 +43,28 @@ export const SignUser: React.FC<SignUserProps> = ({ onSignUp }) => {
     if (data) {
       const { email, id, name, nickname } = data.user;
       setUser({ email, id, name, nickname });
+      navigate(AppRoute.Comics);
     }
-  }, [data, setUser]);
+  }, [data, navigate, setUser]);
 
   const handleLogin = async () => {
     await signInWithCredentials(email, password);
     await getUser();
+  };
+
+  const handleSignUp = async ({
+    email,
+    name,
+    password,
+    nickname,
+  }: {
+    email: string;
+    name: string;
+    password: string;
+    nickname: string;
+  }) => {
+    await signUpWithCredentials({ email, name, password, nickname });
+    onClose();
   };
 
   return (
@@ -122,17 +141,8 @@ export const SignUser: React.FC<SignUserProps> = ({ onSignUp }) => {
           <ModalHeader>Create a count</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <p>Aquí irá el formulario de registro.</p>
+            <SignUp onSignUpSuccess={handleSignUp} />
           </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost" onClick={onSignUp}>
-              Sign up
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </Flex>

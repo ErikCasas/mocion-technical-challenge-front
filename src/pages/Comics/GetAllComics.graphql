@@ -1,0 +1,10 @@
+# src/graphql/GetAllComics.graphql
+query Comics($comicsInput: ComicsInput!) {
+  comics(comicsInput: $comicsInput) {
+    id
+    image
+    publisher
+    description
+    person_credits
+  }
+}
