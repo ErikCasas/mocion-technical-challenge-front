@@ -5,4 +5,5 @@ export enum PublicRoute {
 export enum AppRoute {
   Comics = "/comics",
   Comic = "/comic",
+  Favorites = "/Favorites",
 }

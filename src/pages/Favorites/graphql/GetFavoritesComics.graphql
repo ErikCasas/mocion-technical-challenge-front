@@ -1,0 +1,10 @@
+query Favorites {
+  user {
+    id
+    favoriteComics {
+      id
+      name
+      image
+    }
+  }
+}

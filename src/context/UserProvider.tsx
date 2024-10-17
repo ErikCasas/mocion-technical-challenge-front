@@ -32,7 +32,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     setUserStorage(user);
-  }, [setUserStorage, user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const contextValue = useMemo(
     () => ({

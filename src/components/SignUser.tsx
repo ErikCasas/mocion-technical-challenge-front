@@ -116,10 +116,11 @@ export const SignUser: React.FC = () => {
 
       <Button
         leftIcon={<MdLock />}
-        colorScheme="teal"
         variant="solid"
         mt={6}
         width="100%"
+        bgColor="#2d6bba"
+        color="white"
         onClick={handleLogin}
       >
         Login
@@ -130,6 +131,9 @@ export const SignUser: React.FC = () => {
         variant="outline"
         mt={4}
         width="100%"
+        bgColor="#fccf2d"
+        color={"#2d6bba"}
+        borderColor="#2d6bba"
         onClick={onOpen}
       >
         Create a count
@@ -137,7 +141,7 @@ export const SignUser: React.FC = () => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bgColor="#dbb102">
           <ModalHeader>Create a count</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

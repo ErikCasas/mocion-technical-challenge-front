@@ -1,10 +1,3 @@
-/**
- * @license
- * Copyright 2023 Ada School
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- */
-
 import { Flex, Box } from "@chakra-ui/react";
 import React from "react";
 

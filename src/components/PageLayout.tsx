@@ -1,4 +1,3 @@
-// src/components/PageLayout.tsx
 import { Grid, Box } from "@chakra-ui/react";
 
 export const PageLayout: React.FC<{ children: React.ReactNode }> = ({

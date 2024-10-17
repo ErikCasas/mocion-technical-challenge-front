@@ -23,6 +23,7 @@ export const Paginated: React.FC<PaginatedProps> = ({
       p={2}
       boxShadow="0 -2px 4px rgba(0, 0, 0, 0.1)"
       zIndex="1000"
+      bgColor="#f6e7d0"
     >
       <Stack direction="row" spacing={4} justify="center" align="center">
         <Button
@@ -44,7 +45,8 @@ export const Paginated: React.FC<PaginatedProps> = ({
             md: "sm",
             lg: "md",
           }}
-          color="white"
+          fontWeight="extrabold"
+          color="black"
         >
           Page {numberPage}
         </Text>

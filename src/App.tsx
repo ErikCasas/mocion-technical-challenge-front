@@ -16,7 +16,8 @@ export const App = () => {
     if (user) {
       setUser(user);
     }
-  }, [user, setUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ChakraProvider theme={theme}>

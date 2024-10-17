@@ -1,10 +1,12 @@
-// src/components/Header.tsx
-import { Avatar, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Avatar, Flex, IconButton, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { RiLogoutBoxRLine } from "react-icons/ri";
 import { useUser } from "../context/useUser";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { config } from "../../config";
+import { IoIosLogOut } from "react-icons/io";
+import logo from "../../public/img/logo.png";
+import { Link } from "react-router-dom";
+import { AppRoute } from "../AppRoute";
 
 const profilesPhotos = [
   "/img/profile/batman.jpg",
@@ -45,8 +47,8 @@ export const Header: React.FC = () => {
   const [_userStorage, setUserStorage] = useLocalStorage(config.USER_KEY, null);
 
   const handleLogout = () => {
-    setUserStorage(null);
     setUser(null);
+    setUserStorage(null);
   };
   return (
     <Flex
@@ -67,13 +69,19 @@ export const Header: React.FC = () => {
       shadow="xs"
       align="center"
     >
+      <Link to={AppRoute.Comics}>
+        <Image
+          src={logo}
+          maxHeight={{ base: "40px", md: "50px", lg: "60px" }}
+          maxWidth="auto"
+          objectFit="contain"
+          flexShrink={0}
+          alt="Logo"
+        />
+      </Link>
+
       {isLogged && (
         <>
-          <IconButton
-            aria-label="logout"
-            onClick={handleLogout}
-            icon={<RiLogoutBoxRLine color="black" />}
-          />
           <Flex align="center" gap="5">
             <Text
               fontSize={{
@@ -86,6 +94,11 @@ export const Header: React.FC = () => {
               {name}
             </Text>
             <Avatar size={["md", "lg"]} name={name} src={photo} />
+            <IconButton
+              aria-label="logout"
+              onClick={handleLogout}
+              icon={<IoIosLogOut />}
+            />
           </Flex>
         </>
       )}

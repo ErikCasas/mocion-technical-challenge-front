@@ -77,7 +77,7 @@ export const SignUp: React.FC<SignUpProps> = ({ onSignUpSuccess }) => {
   };
 
   return (
-    <Flex direction="column" align="center" p={6}>
+    <Flex direction="column" align="center" p={6} bgColor="#dbb102">
       <Heading mb={6}>Create Account</Heading>
       <form onSubmit={handleSubmit} style={{ width: "100%" }}>
         <FormControl isInvalid={!!errors.name} mb={4}>
@@ -147,9 +147,7 @@ export const SignUp: React.FC<SignUpProps> = ({ onSignUpSuccess }) => {
           </InputGroup>
           <FormErrorMessage>{errors.nickname}</FormErrorMessage>
         </FormControl>
-
-        {/* Submit Button */}
-        <Button type="submit" colorScheme="teal" width="full">
+        <Button type="submit" color="white" bgColor="#2d6bba" width="full">
           Sign Up
         </Button>
       </form>

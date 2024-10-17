@@ -1,0 +1,14 @@
+query Comic($comicId: ID!) {
+  comic(id: $comicId) {
+    id
+    name
+    person_credits
+    description
+    image
+    issue_number
+    cover_date
+    volume
+    publisher
+    isLiked
+  }
+}

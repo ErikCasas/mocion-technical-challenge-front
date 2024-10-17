@@ -3,6 +3,7 @@ query Comics($comicsInput: ComicsInput!) {
   comics(comicsInput: $comicsInput) {
     id
     image
+    name
     publisher
     description
     person_credits

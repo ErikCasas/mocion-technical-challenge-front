@@ -21,6 +21,7 @@ export type Comic = {
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   image: Scalars['String']['output'];
+  isLiked?: Maybe<Scalars['Boolean']['output']>;
   issue_number?: Maybe<Scalars['Int']['output']>;
   name: Scalars['String']['output'];
   person_credits?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -48,7 +49,13 @@ export type FilterInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addFavoriteComic: Comic;
   createUser: User;
+};
+
+
+export type MutationAddFavoriteComicArgs = {
+  comicId: Scalars['ID']['input'];
 };
 
 

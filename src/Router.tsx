@@ -6,6 +6,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const Comics = lazy(() => import("./pages/Comics/Comics"));
+const Comic = lazy(() => import("./pages/Comic/Comic"));
+const Favorites = lazy(() => import("./pages/Favorites/Favorites"));
 
 export const Router = () => {
   return (
@@ -18,6 +20,28 @@ export const Router = () => {
           <PageLayout>
             <ProtectedRoute>
               <Comics />
+            </ProtectedRoute>
+          </PageLayout>
+        }
+      />
+
+      <Route
+        path={`${AppRoute.Comic}/:comicId`}
+        element={
+          <PageLayout>
+            <ProtectedRoute>
+              <Comic />
+            </ProtectedRoute>
+          </PageLayout>
+        }
+      />
+
+      <Route
+        path={`${AppRoute.Favorites}`}
+        element={
+          <PageLayout>
+            <ProtectedRoute>
+              <Favorites />
             </ProtectedRoute>
           </PageLayout>
         }

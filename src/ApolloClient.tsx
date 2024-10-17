@@ -12,7 +12,6 @@ import { createStandaloneToast } from "@chakra-ui/react";
 
 const { toast } = createStandaloneToast();
 
-// Manejo de errores con Chakra UI Toast
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach(({ message }) => {

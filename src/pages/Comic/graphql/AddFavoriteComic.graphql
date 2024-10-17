@@ -1,0 +1,6 @@
+mutation AddFavoriteComic($comicId: ID!) {
+  addFavoriteComic(comicId: $comicId) {
+    id
+    isLiked
+  }
+}

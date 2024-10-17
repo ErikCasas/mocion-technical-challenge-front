@@ -20,10 +20,10 @@ const HomePage = () => {
       as="section"
       templateColumns={{ base: "1fr", md: "1fr 500px" }}
       alignItems="center"
-      gap="4"
+      gap="5"
       backgroundColor={"transparent"}
       minH="100%"
-      p={{ base: "1", md: "3" }}
+      p={{ base: "1", md: "3", lg: "24" }}
     >
       <Flex
         justify="center"

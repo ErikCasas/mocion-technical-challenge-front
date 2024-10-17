@@ -1,15 +1,26 @@
 import ComicCard from "../../components/ComicCard";
 import { useLazyQuery } from "@apollo/client";
-import { Box, Grid, Button, Select, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  Button,
+  Select,
+  Stack,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import {
   ComicsDocument,
   ComicsQuery,
   ComicsQueryVariables,
-} from "./GetAllComics.generated";
+} from "./graphql/GetAllComics.generated";
 import { Loading } from "../../components/Loading";
 import { SortDirection } from "../../types/schemaTypes";
 import { Paginated } from "../../components/Paginated";
+import { FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { AppRoute } from "../../AppRoute";
 
 const Comics = () => {
   const [filter, setFilter] = useState({
@@ -17,6 +28,8 @@ const Comics = () => {
     offset: 0,
     orderBy: { direction: SortDirection.Asc, field: "name" },
   });
+
+  const navigate = useNavigate();
 
   const [getComics, { data, loading, error }] = useLazyQuery<
     ComicsQuery,
@@ -65,6 +78,10 @@ const Comics = () => {
     }));
   };
 
+  const handleClick = () => {
+    navigate(`${AppRoute.Favorites}`);
+  };
+
   const numberPage = Math.floor(filter.offset / filter.limit) + 1;
   const isDesabledNextButton = !!data && data.comics.length < filter.limit;
   const isDisabledPreviousButton = filter.offset === 0;
@@ -72,45 +89,69 @@ const Comics = () => {
   if (error) return <Box>Error: {error.message}</Box>;
 
   return (
-    <Box p={4}>
+    <Box p={4} w="100%" h="100%">
       {loading && <Loading />}
 
-      <Stack direction={{ base: "column", md: "row" }} spacing={4} mb={4}>
-        <Select
-          value={filter.orderBy.field || "name"}
-          onChange={(e) => handleSortChange(e.target.value)}
-          border="2px"
-          borderColor="#b71313"
-          focusBorderColor="#5f2872"
-          _hover={{ borderColor: "#5f2872" }}
-        >
-          <option
-            value="name"
-            style={{ backgroundColor: "#c9a523", color: "whitesmoke" }}
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        spacing={4}
+        mb={4}
+        maxW="prose"
+        align="self-end"
+      >
+        <FormControl>
+          <FormLabel htmlFor="sort-select" fontWeight="bold" fontSize="xl">
+            ↕️ Order By
+          </FormLabel>
+          <Select
+            id="sort-select"
+            value={filter.orderBy.field || "name"}
+            onChange={(e) => handleSortChange(e.target.value)}
+            border="2px"
+            borderColor="#b71313"
+            focusBorderColor="#5f2872"
+            _hover={{ borderColor: "#5f2872" }}
           >
-            Name
-          </option>
-          <option
-            value="cover_date"
-            style={{ backgroundColor: "#830d0d", color: "whitesmoke" }}
-          >
-            Cover Date
-          </option>
-          <option
-            value="issue_number"
-            style={{ backgroundColor: "#638b12", color: "whitesmoke" }}
-          >
-            Issue Number
-          </option>
-          <option
-            value="volume"
-            style={{ backgroundColor: "#204d86", color: "whitesmoke" }}
-          >
-            Volume
-          </option>
-        </Select>
+            <option
+              value="name"
+              style={{ backgroundColor: "#c9a523", color: "whitesmoke" }}
+            >
+              Name
+            </option>
+            <option
+              value="cover_date"
+              style={{ backgroundColor: "#830d0d", color: "whitesmoke" }}
+            >
+              Cover Date
+            </option>
+            <option
+              value="issue_number"
+              style={{ backgroundColor: "#638b12", color: "whitesmoke" }}
+            >
+              Issue Number
+            </option>
+            <option
+              value="volume"
+              style={{ backgroundColor: "#204d86", color: "whitesmoke" }}
+            >
+              Volume
+            </option>
+          </Select>
+        </FormControl>
         <Button onClick={toggleSortDirection}>
-          {filter.orderBy.direction === SortDirection.Asc ? "Asc" : "Desc"}
+          {filter.orderBy.direction === SortDirection.Asc
+            ? "Asc 🔼"
+            : "Desc 🔽"}
+        </Button>
+        <Button
+          border="2px"
+          borderColor="#ee145b"
+          fontWeight="extrabold"
+          leftIcon={<FaHeart />}
+          px={5}
+          onClick={handleClick}
+        >
+          Favorites
         </Button>
       </Stack>
 
